@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Uvicorn",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/backend_venv/bin/uvicorn",
+            "args": [
+                "main:app",
+                "--reload"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/backend"
+            },
+            "cwd": "${workspaceFolder}/backend"
+        }
+    ]
+}

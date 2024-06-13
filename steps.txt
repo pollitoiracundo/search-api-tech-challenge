@@ -1,0 +1,20 @@
+mkdir searchapp
+cd searchapp 
+npm install -g create-react-app
+npx create-react-app frontend
+cd frontend
+start coding :)
+
+
+mkdir backend
+python3 -m venv backend_venv
+source backend_venv/bin/activate
+pip install fastapi uvicorn
+uvicorn main:app --reload 
+pip freeze > requirements.txt
+
+aws ecr create-repository --repository-name search-app --region us-west-2
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 775645845343.dkr.ecr.us-west-2.amazonaws.com
+docker tag search-app:latest 775645845343.dkr.ecr.us-west-2.amazonaws.com/search-app:latest
+docker push 775645845343.dkr.ecr.us-west-2.amazonaws.com/search-app:latest
+
