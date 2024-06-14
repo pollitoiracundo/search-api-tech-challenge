@@ -32,6 +32,7 @@ This is a simple FastAPI + React project that allows users to search for health 
     cd backend
     python -m venv backend_venv
     source backend_venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    pip install -r requirements.txt
 
     cd ../frontend
     npm install
