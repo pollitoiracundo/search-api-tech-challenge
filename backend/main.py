@@ -18,20 +18,6 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-# Dictionary to store the data
-data_store: Dict[str, Dict[str, Any]] = {}
-
-# Define the data model
-class NoisyData(BaseModel):
-    name: str = None
-    last_name: str = None
-    taxonomy: str = None
-    phone: str = None
-    address: str = None
-    middle_name: str = None
-    gender: str = None
-    city: str = None
-    zip_code: str = None
 
 # Define the allowed origins
 origins = [
@@ -76,7 +62,9 @@ async def search_clinics(request: Request):
     data_str = data.decode('utf-8') 
     #use gpt4o for transform the noisy to a single query
     url = create_npi_query(data_str)
+    logger.info(url)
     result = make_npi_api_call(url)
+    logger.info(result)
     #result = json.load(result)
     #apply embeddings to each result to add a score
     original_emb = get_embeddings_item(data_str)
@@ -85,6 +73,6 @@ async def search_clinics(request: Request):
         item_emb = get_embeddings_item(json.dumps(res))
         score = np.dot(original_emb, item_emb) / (norm_original_emb * np.linalg.norm(item_emb)) #https://github.com/openai/openai-cookbook/blob/ed65883e4386d91183dacfbba40dcfcc0f4d00d8/examples/utils/embeddings_utils.py#L64
         res["score"] = score
-    return {"message": "success","res": result}
+    return {"message": "success","res": result, "original_input":data_str,"real_query":url}
 
 #K3lS7TYaPI7N6PdYHDSnr5pUWH119tKr5d6NlIc7
