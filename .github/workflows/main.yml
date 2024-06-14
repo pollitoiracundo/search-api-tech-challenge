@@ -1,0 +1,38 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch if it's not 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Ensure this matches your project's Node.js version
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./frontend
+
+    - name: Build project
+      run: npm run build
+      working-directory: ./frontend
+
+    - name: Deploy to S3
+      uses: jakejarvis/s3-sync-action@v0.5.1
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'us-west-2'  # Change this to your S3 bucket's region
+        SOURCE_DIR: './frontend/build'
