@@ -1,14 +1,14 @@
 # Search NPI using noise data and GPT4o
 
-This is a simple FastAPI + React project that allows users to search for health professionals and clinics. The application includes a search bar for inputting queries and displays the search results in a card format similar to Google Search results. The goal is to handle `POST` requests on the `/search/doctors` endpoint in AWS.
+This is a simple FastAPI + React project that allows users to search for health professionals and clinics. The application includes a search bar for inputting queries and displays the search results in a card format similar to Google Search results. The goal is to handle `POST` requests on the `/search/doctors` endpoint in AWS. The backend process the input in order to call the NPI GET API and return a scored list of results.
 
 ## Features
 
 - Search for health professionals and clinics using a query input.
 - Display results in a card format with details such as NPI, name, primary practice address, phone, and primary taxonomy.
 - Sort results based on a normalized score on a 1-10 scale.
-- Disable the search button while waiting for the API response.
-- Show a message when no results are found.
+- Create the score using embeddings agains the search query
+- Re-format the input query in order to call the NPI
 
 ## Requirements
 
@@ -17,6 +17,7 @@ This is a simple FastAPI + React project that allows users to search for health 
 - Uvicorn
 - Node.js
 - npm (Node Package Manager)
+- aws: API GATEWAY, ECS, ALB, S3.
 
 ## Installation
 
