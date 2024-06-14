@@ -22,7 +22,7 @@ logging.basicConfig(
 # Define the allowed origins
 origins = [
     "http://localhost:3000",  # Frontend local URL
-    
+    "http://search-api-npi.s3-website-us-west-2.amazonaws.com/"
 ]
 
 app.add_middleware(

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//const API_URL = 'https://tf2bfbbm83.execute-api.us-west-2.amazonaws.com/dev/search/doctors';
-const API_URL = 'http://localhost:8000/search/doctors';
+const API_URL = 'https://tf2bfbbm83.execute-api.us-west-2.amazonaws.com/dev/search/doctors';
+//const API_URL = 'http://localhost:8000/search/doctors';
 
 
 export const fetchHealthProfessionals = async (query) => {
